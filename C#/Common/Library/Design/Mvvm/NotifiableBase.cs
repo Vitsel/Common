@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Library.Design.Mvvm
+namespace Common.Library.Design.Mvvm
 {
     [DebuggerStepThrough]
     public class NotifiableBase : INotifyPropertyChanged

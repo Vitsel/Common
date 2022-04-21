@@ -4,14 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F7799DE2-DD27-43F4-B714-8879514E70F1}</ProjectGuid>
+    <ProjectGuid>{8722256C-E727-4123-8AA3-887258CBE51E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Library</RootNamespace>
-    <AssemblyName>Library</AssemblyName>
+    <RootNamespace>Common.Databases</RootNamespace>
+    <AssemblyName>Common.Databases</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
+    <Reference Include="LevelDB.NET, Version=2.1.6.0, Culture=neutral, PublicKeyToken=843150c17bd99711, processorArchitecture=MSIL">
+      <HintPath>..\packages\LevelDB.Standard.2.1.6.1\lib\net4\LevelDB.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,9 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\Command\RelayCommand.cs" />
-    <Compile Include="Design\Mvvm\NotifiableBase.cs" />
+    <Compile Include="LevelDb\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\LevelDB.Standard.2.1.6.1\build\net4\LevelDB.Standard.targets" Condition="Exists('..\packages\LevelDB.Standard.2.1.6.1\build\net4\LevelDB.Standard.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\LevelDB.Standard.2.1.6.1\build\net4\LevelDB.Standard.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LevelDB.Standard.2.1.6.1\build\net4\LevelDB.Standard.targets'))" />
+  </Target>
 </Project>
