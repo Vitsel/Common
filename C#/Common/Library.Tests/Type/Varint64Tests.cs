@@ -38,15 +38,15 @@ namespace Common.Library.Tests.Type
         [InlineData(new byte[] { 0xAC, 0x02 }, 300)]
         [InlineData(new byte[] { 53 }, 53)]
         [InlineData(new byte[] { 0xAA, 0xBF, 0xEB, 0xEF, 0x9A, 0xF4, 0x03 }, 0xFA1ADFADFAA)]
+        [InlineData(new byte[] { 0xEF, 0xB3, 0x87, 0xBE, 0x01 }, 0x17C1D9EF)]
         public void GetTest(byte[] target, long expected)
         {
-            var stream = new MemoryStream();
+            using (var stream = new MemoryStream(target))
+            {
+                var varint = Varint64.Get(stream, 0);
 
-            stream.Write(target, 0, target.Length);
-
-            var varint = Varint64.Get(stream, 0);
-
-            Assert.Equal(expected, varint.Value);
+                Assert.Equal(expected, varint.Value);
+            }
         }
     }
 }

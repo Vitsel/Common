@@ -16,14 +16,15 @@ namespace Common.Library.Tests.Type
             var input = new byte[] { 0xAA, 0xBF, 0xEB, 0xEF, 0x9A, 0xF4, 0x03, 0xFF, 0xFF };
             var expected = new byte[] { 0xAA, 0xBF, 0xEB, 0xEF, 0x9A, 0xF4, 0x03 };
 
-            var stream = new MemoryStream();
-            stream.Write(input, 0, input.Length);
-            stream.Seek(0, SeekOrigin.Begin);
+            using (var stream = new MemoryStream(input))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
 
-            var parser = new VarintParser();
-            var bytes = parser.ReadBytes(stream, sizeof(long));
+                var parser = new VarintParser();
+                var bytes = parser.ReadBytes(stream, sizeof(long));
 
-            Assert.True(Enumerable.SequenceEqual(expected, bytes));
+                Assert.True(Enumerable.SequenceEqual(expected, bytes));
+            }
         }
 
         [Fact]
@@ -86,12 +87,13 @@ namespace Common.Library.Tests.Type
         {
             var bytes = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
 
-            var stream = new MemoryStream();
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Seek(0, SeekOrigin.Begin);
+            using (var stream = new MemoryStream(bytes))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
 
-            var parser = new VarintParser();
-            Assert.Throws<EndOfStreamException>(() => parser.ReadBytes(stream, sizeof(long)));
+                var parser = new VarintParser();
+                Assert.Throws<EndOfStreamException>(() => parser.ReadBytes(stream, sizeof(long)));
+            }
         }
 
         [Fact]
@@ -99,12 +101,13 @@ namespace Common.Library.Tests.Type
         {
             var bytes = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-            var stream = new MemoryStream();
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Seek(0, SeekOrigin.Begin);
+            using (var stream = new MemoryStream(bytes))
+            {
+                stream.Seek(0, SeekOrigin.Begin);
 
-            var parser = new VarintParser();
-            Assert.Throws<IndexOutOfRangeException>(() => parser.ReadBytes(stream, sizeof(long)));
+                var parser = new VarintParser();
+                Assert.Throws<IndexOutOfRangeException>(() => parser.ReadBytes(stream, sizeof(long)));
+            }
         }
     }
 }

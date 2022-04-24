@@ -34,6 +34,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,7 +45,9 @@
   <ItemGroup>
     <Compile Include="Design\Command\RelayCommand.cs" />
     <Compile Include="Design\Mvvm\NotifiableBase.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Type\Comparer\ByteArrayComparer.cs" />
     <Compile Include="Type\Varint16.cs" />
     <Compile Include="Type\VarintParser.cs" />
     <Compile Include="Type\Varint32.cs" />

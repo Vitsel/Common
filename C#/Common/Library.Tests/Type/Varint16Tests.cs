@@ -38,13 +38,12 @@ namespace Common.Library.Tests.Type
         [InlineData(new byte[] {53}, 53)]
         public void GetTest(byte[] target, short expected)
         {
-            var stream = new MemoryStream();
+            using (var stream = new MemoryStream(target))
+            {
+                var varint = Varint16.Get(stream, 0);
 
-            stream.Write(target, 0, target.Length);
-
-            var varint = Varint16.Get(stream, 0);
-
-            Assert.Equal(expected, varint.Value);
+                Assert.Equal(expected, varint.Value);
+            }
         }
     }
 }

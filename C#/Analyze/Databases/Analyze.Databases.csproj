@@ -41,10 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelDb\Block.cs" />
+    <Compile Include="LevelDb\BlockHandle.cs" />
+    <Compile Include="LevelDb\BlockRecord.cs" />
+    <Compile Include="LevelDb\DataBlock.cs" />
+    <Compile Include="LevelDb\IndexBlock.cs" />
+    <Compile Include="LevelDb\IndexRecord.cs" />
+    <Compile Include="LevelDb\LdbFile.cs" />
+    <Compile Include="LevelDb\LevelDbReader.cs" />
+    <Compile Include="LevelDb\Record.cs" />
+    <Compile Include="LevelDb\LogBlock.cs" />
+    <Compile Include="LevelDb\LogFile.cs" />
+    <Compile Include="LevelDb\LogRecord.cs" />
+    <Compile Include="LevelDb\States.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="LevelDb\" />
+    <ProjectReference Include="..\..\Common\Library\Common.Library.csproj">
+      <Project>{f7799de2-dd27-43f4-b714-8879514e70f1}</Project>
+      <Name>Common.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,9 +8,9 @@ namespace Common.Library.Type
     public class Varint32 : IEquatable<Varint32>
     {
         #region Constants
-        public const int MaxValue = 0xFFFFFFF;
+        public const int MAX_VALUE = 0xFFFFFFF;
 
-        private const int MAX_LENGTH = 4;
+        public const int MAX_SIZE = 4;
         #endregion
 
         public int Value
@@ -18,8 +18,8 @@ namespace Common.Library.Type
             get => _Value;
             set
             {
-                if (value > MaxValue)
-                    throw new ArgumentOutOfRangeException($"Max value is {MaxValue}.");
+                if (value > MAX_VALUE)
+                    throw new ArgumentOutOfRangeException($"Max value is {MAX_VALUE}.");
 
                 _Value = value;
             }
@@ -55,7 +55,7 @@ namespace Common.Library.Type
         {
             var parser = new VarintParser();
 
-            return parser.ToBytes(Value, MAX_LENGTH);
+            return parser.ToBytes(Value, MAX_SIZE);
         }
 
         public override string ToString()
@@ -96,18 +96,16 @@ namespace Common.Library.Type
         #endregion
 
         #region Static Methods
-        public static Varint32 Get(Stream stream, long offset)
+        public static Varint32 Get(Stream stream, long offset, SeekOrigin origin = SeekOrigin.Begin)
         {
-            stream.Seek(offset, SeekOrigin.Begin);
+            stream.Seek(offset, origin);
 
             return Get(stream);
         }
 
         public static Varint32 Get(Stream stream)
         {
-            var parser = new VarintParser();
-            var bytes = parser.ReadBytes(stream, MAX_LENGTH);
-            var value = parser.ToInt32(bytes);
+            var value = new VarintParser().ReadInt32(stream);
 
             return new Varint32(value);
         }

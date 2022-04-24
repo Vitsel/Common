@@ -18,6 +18,10 @@ namespace Common.Library.Type
         private const int MAX_BITS_INT64 = 56;
         #endregion
 
+        public short ReadInt16(Stream stream) => ToInt16(ReadBytes(stream, 2));
+        public int ReadInt32(Stream stream) => ToInt32(ReadBytes(stream, 4));
+        public long ReadInt64(Stream stream) => ToInt64(ReadBytes(stream, 8));
+
         public byte[] ReadBytes(Stream stream, int maxLength)
         {
             if (maxLength > MAX_LENGTH_LIMIT)
